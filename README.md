@@ -20,7 +20,7 @@ then
     
 ## To do's
 
-- [x] Share link with console params as search params
+- [x] ~~Share link with console params as search params~~
 
 - [ ] Allow customization for each separate border
 
