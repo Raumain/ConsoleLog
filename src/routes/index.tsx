@@ -60,7 +60,7 @@ export default function Main() {
         <div className="flex w-1/3 flex-col max-sm:h-[50%] max-sm:w-full">
           <div className="bg-dark-950 border-dark-800 m-0.5 flex h-1/2 flex-col rounded-sm border p-2">
             <h3 className="text-primary-500 text-lg font-bold">Render</h3>
-            <div className="bg-dark-900 mt-4 flex h-full w-full items-center justify-center rounded-sm">
+            <div className="bg-dark-900 mt-4 flex h-full w-full items-center justify-center overflow-auto rounded-sm">
               <div className="border-y-dark-800 relative w-full border-y p-2">
                 <span className="text-dark-600 absolute right-0 top-0 pr-2 pt-1 font-mono text-xs underline">
                   index.ts:1
