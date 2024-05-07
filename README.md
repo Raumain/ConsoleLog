@@ -20,13 +20,13 @@ then
     
 ## To do's
 
-- [] Share link with console params as search params
+- [x] Share link with console params as search params
 
-- [] Allow customization for each separate border
+- [ ] Allow customization for each separate border
 
-- [] Allow multiple customizations for a single console.log()
+- [ ] Allow multiple customizations for a single console.log()
 
-- [] Improve UI ?
+- [ ] Improve UI ?
 ## Contributing
 
 Contributions are always welcome!
