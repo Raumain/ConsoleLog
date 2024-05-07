@@ -40,7 +40,7 @@ export default function Main() {
     <div className="bg-dark-900 font-outfit flex h-screen flex-col text-white">
       <Nav />
       <div className="flex h-[90%] w-full p-2 max-sm:flex-col">
-        <div className="flex w-2/3 flex-col max-sm:w-full">
+        <div className="flex w-2/3 flex-col max-sm:h-[50%] max-sm:w-full">
           <div className="bg-dark-950 border-dark-800 m-0.5 h-1/3 rounded-sm border p-2">
             <h3 className="text-primary-500 text-lg font-bold">Content to log</h3>
             <input
@@ -57,7 +57,7 @@ export default function Main() {
             <Outlet />
           </div>
         </div>
-        <div className="flex w-1/3 flex-col max-sm:w-full">
+        <div className="flex w-1/3 flex-col max-sm:h-[50%] max-sm:w-full">
           <div className="bg-dark-950 border-dark-800 m-0.5 flex h-1/2 flex-col rounded-sm border p-2">
             <h3 className="text-primary-500 text-lg font-bold">Render</h3>
             <div className="bg-dark-900 mt-4 flex h-full w-full items-center justify-center rounded-sm">
