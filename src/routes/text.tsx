@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import ColorPicker from "../components/ColorPicker";
 import ResetButton from "../components/ResetButton";
 import Select from "../components/Select";
@@ -8,6 +9,8 @@ import { useLogState } from "../store";
 
 export default function Text() {
   const logState = useLogState();
+
+  const [_, setSearchParams] = useSearchParams();
   return (
     <div className="flex flex-col gap-4">
       <div>
@@ -31,12 +34,13 @@ export default function Text() {
         <div className="mt-4 flex flex-wrap gap-4">
           <ColorPicker
             title="Color"
-            onChange={(e) =>
+            onChange={(e) => {
+              setSearchParams(`&color=${e.currentTarget.value}`);
               logState.updateText({
                 ...logState.text,
                 color: e.currentTarget.value,
-              })
-            }
+              });
+            }}
             value={logState.text.color}
           />
           <Select
@@ -52,9 +56,10 @@ export default function Text() {
               "Courier New",
               "Brush Script MT",
               "Comic Sans MS",
-              "Monospace"
+              "Monospace",
             ]}
             onChange={(e) => {
+              setSearchParams(`&family=${e.currentTarget.innerText}`);
               logState.updateText({
                 ...logState.text,
                 family: e.currentTarget.innerText,
@@ -65,34 +70,37 @@ export default function Text() {
           <Slider
             title="Size"
             range={[0, 50]}
-            onChange={(e) =>
+            onChange={(e) => {
+              setSearchParams(`&size=${e.currentTarget.value}`);
               logState.updateText({
                 ...logState.text,
                 size: e.currentTarget.value + "px",
-              })
-            }
+              });
+            }}
             value={logState.text.size.replace("px", "") || "16"}
           />
           <Select
             title="Style"
             list={["normal", "italic", "oblique"]}
-            onChange={(e) =>
+            onChange={(e) => {
+              setSearchParams(`&style=${e.currentTarget.innerText}`);
               logState.updateText({
                 ...logState.text,
                 style: e.currentTarget.innerText,
-              })
-            }
+              });
+            }}
             value={logState.text.style}
           />
           <Select
             title="Decoration"
             list={["none", "underline", "overline", "line-through"]}
-            onChange={(e) =>
+            onChange={(e) => {
+              setSearchParams(`&decoration=${e.currentTarget.innerText}`)
               logState.updateText({
                 ...logState.text,
                 decoration: e.currentTarget.innerText,
-              })
-            }
+              });
+            }}
             value={logState.text.decoration}
           />
           <Slider

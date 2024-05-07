@@ -1,10 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import { useLogState } from "../store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Main() {
   const logState = useLogState();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [tooltipContent, setTooltipContent] = useState("Copy");
 
   function handleCopy() {
@@ -16,6 +19,23 @@ export default function Main() {
     navigator.clipboard.writeText(logState.getConsoleLog());
   }
 
+  useEffect(() => {
+    const content = searchParams.get("content");
+    const box = searchParams.get("box");
+    const background = searchParams.get("background");
+    const text = searchParams.get("text");
+    if (content) logState.updateContent(content);
+    if (box) logState.updateBox(JSON.parse(box));
+    if (background) logState.updateBackground(JSON.parse(background));
+    if (text) logState.updateText(JSON.parse(text));
+  }, []);
+
+  useEffect(() => {
+    setSearchParams(
+      `?content=${logState.content}&box=${JSON.stringify(logState.box)}&background=${JSON.stringify(logState.background)}&text=${JSON.stringify(logState.text)}`,
+    );
+  }, [logState, window.location.pathname]);
+
   return (
     <div className="bg-dark-900 font-outfit flex h-screen flex-col text-white">
       <Nav />
@@ -26,7 +46,10 @@ export default function Main() {
             <input
               type="text"
               className="bg-dark-900 mt-2 w-full rounded-sm p-1"
-              onChange={(e) => logState.updateContent(e.currentTarget.value)}
+              onChange={(e) => {
+                setSearchParams(`?content=${e.currentTarget.value}`);
+                logState.updateContent(e.currentTarget.value);
+              }}
               value={logState.content}
             />
           </div>
@@ -69,7 +92,9 @@ export default function Main() {
           </div>
         </div>
       </div>
-      <span className="flex items-center justify-center w-full text-xs text-primary-400">Made with love by Raumain • 2024</span>
+      <span className="text-primary-400 flex w-full items-center justify-center text-xs">
+        Made with love by Raumain • 2024
+      </span>
     </div>
   );
 }

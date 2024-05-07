@@ -3,7 +3,6 @@ import { create } from 'zustand'
 
 interface LogStyleActionsType {
   updateContent: (content: string) => void
-  updateBorder: (border: typeof initialState.border) => void
   updateBackground: (background: typeof initialState.background) => void
   updateText: (text: typeof initialState.text) => void
   updateBox: (box: typeof initialState.box) => void
@@ -31,37 +30,12 @@ interface LogStyleActionsType {
     "padding-bottom": string,
     "padding-left": string,
   })
-  getConsoleLog: () => string
+  getConsoleLog: () => string,
+  convertToSearchParams: () => URLSearchParams
 }
 
 const initialState = {
   content: "Hello World !",
-  border: {
-    top: {
-      color: "",
-      style: "",
-      size: "",
-      radius: "",
-    },
-    right: {
-      color: "",
-      style: "",
-      size: "",
-      radius: "",
-    },
-    bottom: {
-      color: "",
-      style: "",
-      size: "",
-      radius: "",
-    },
-    left: {
-      color: "",
-      style: "",
-      size: "",
-      radius: "",
-    },
-  },
   background: {
     color: "",
     gradient: {
@@ -86,6 +60,32 @@ const initialState = {
     }],
   },
   box: {
+    border: {
+      top: {
+        color: "",
+        style: "",
+        size: "",
+        radius: "",
+      },
+      right: {
+        color: "",
+        style: "",
+        size: "",
+        radius: "",
+      },
+      bottom: {
+        color: "",
+        style: "",
+        size: "",
+        radius: "",
+      },
+      left: {
+        color: "",
+        style: "",
+        size: "",
+        radius: "",
+      },
+    },
     margin: {
       top: "",
       right: "",
@@ -104,12 +104,11 @@ const initialState = {
 export const useLogState = create<typeof initialState & LogStyleActionsType>()((set, get) => ({
   ...initialState,
   updateContent: (content: string) => set({ content }),
-  updateBorder: (border: typeof initialState.border) => set({ border }),
   updateBackground: (background: typeof initialState.background) => set({ background }),
   updateText: (text: typeof initialState.text) => set({ text }),
   updateBox: (box: typeof initialState.box) => set({ box }),
   getCssStyle: () => {
-    const { text, border, background, box } = get()
+    const { text, background, box } = get()
     return (
       {
         "color": `${text.color}`,
@@ -120,11 +119,11 @@ export const useLogState = create<typeof initialState & LogStyleActionsType>()((
         "text-transform": `${text.transform}`,
         "font-family": `${text.family}`,
         "text-shadow": `${text.shadow.map(({ color, x, y, blur }) => `${x} ${y} ${blur} ${color}`).join(", ")}`,
-        "border-top": `${border.top.size} ${border.top.style} ${border.top.color}`,
-        "border-right": `${border.right.size} ${border.right.style} ${border.right.color}`,
-        "border-bottom": `${border.bottom.size} ${border.bottom.style} ${border.bottom.color}`,
-        "border-left": `${border.left.size} ${border.left.style} ${border.left.color}`,
-        "border-radius": `${border.top.radius} ${border.right.radius} ${border.bottom.radius} ${border.left.radius}`,
+        "border-top": `${box.border.top.size} ${box.border.top.style} ${box.border.top.color}`,
+        "border-right": `${box.border.right.size} ${box.border.right.style} ${box.border.right.color}`,
+        "border-bottom": `${box.border.bottom.size} ${box.border.bottom.style} ${box.border.bottom.color}`,
+        "border-left": `${box.border.left.size} ${box.border.left.style} ${box.border.left.color}`,
+        "border-radius": `${box.border.top.radius} ${box.border.right.radius} ${box.border.bottom.radius} ${box.border.left.radius}`,
         "background-color": `${background.color}`,
         "background-image": `${background.gradient.type}(${background.gradient.direction === "0deg" ? "" : background.gradient.direction} ${background.gradient.colors.length === 0 ? "" : background.gradient.colors.map(([color, position]) => `${color} ${position}`).join(", ")})`,
         "margin-top": `${box.margin.top}`,
@@ -152,6 +151,16 @@ export const useLogState = create<typeof initialState & LogStyleActionsType>()((
     })
     return `console.log("%c${content}", "${Object.keys(log).length === 0 ? "" : stringifiedLog}")`
 
+  },
+  convertToSearchParams: () => {
+    const { content, background, text, box } = get()
+    const searchParams = new URLSearchParams()
+    searchParams.set("content", content)
+    searchParams.set("border", JSON.stringify(box.border))
+    searchParams.set("background", JSON.stringify(background))
+    searchParams.set("text", JSON.stringify(text))
+    searchParams.set("box", JSON.stringify(box))
+    return searchParams
   }
 }))
 

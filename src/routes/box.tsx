@@ -14,6 +14,7 @@ export default function Box() {
           <ResetButton
             resetFn={() => {
               logState.updateBox({
+                ...logState.box,
                 margin: {
                   top: "",
                   right: "",
@@ -70,11 +71,14 @@ export default function Box() {
           Border
           <ResetButton
             resetFn={() => {
-              logState.updateBorder({
-                top: { color: "", style: "", size: "", radius: "" },
-                right: { color: "", style: "", size: "", radius: "" },
-                bottom: { color: "", style: "", size: "", radius: "" },
-                left: { color: "", style: "", size: "", radius: "" },
+              logState.updateBox({
+                ...logState.box,
+                border: {
+                  top: { color: "", style: "", size: "", radius: "" },
+                  right: { color: "", style: "", size: "", radius: "" },
+                  bottom: { color: "", style: "", size: "", radius: "" },
+                  left: { color: "", style: "", size: "", radius: "" },
+                },
               });
             }}
           />
@@ -83,53 +87,65 @@ export default function Box() {
           <ColorPicker
             title="Color"
             onChange={(e) =>
-              logState.updateBorder({
-                top: { ...logState.border.top, color: e.currentTarget.value },
-                right: { ...logState.border.right, color: e.currentTarget.value },
-                bottom: { ...logState.border.bottom, color: e.currentTarget.value },
-                left: { ...logState.border.left, color: e.currentTarget.value },
+              logState.updateBox({
+                ...logState.box,
+                border: {
+                  top: { ...logState.box.border.top, color: e.currentTarget.value },
+                  right: { ...logState.box.border.right, color: e.currentTarget.value },
+                  bottom: { ...logState.box.border.bottom, color: e.currentTarget.value },
+                  left: { ...logState.box.border.left, color: e.currentTarget.value },
+                },
               })
             }
-            value={logState.border.top.color}
+            value={logState.box.border.top.color}
           />
           <Select
             title="Style"
             list={["solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset", "none"]}
             onChange={(e) => {
-              logState.updateBorder({
-                top: { ...logState.border.top, style: e.currentTarget.innerText },
-                right: { ...logState.border.right, style: e.currentTarget.innerText },
-                bottom: { ...logState.border.bottom, style: e.currentTarget.innerText },
-                left: { ...logState.border.left, style: e.currentTarget.innerText },
+              logState.updateBox({
+                ...logState.box,
+                border: {
+                  top: { ...logState.box.border.top, style: e.currentTarget.innerText },
+                  right: { ...logState.box.border.right, style: e.currentTarget.innerText },
+                  bottom: { ...logState.box.border.bottom, style: e.currentTarget.innerText },
+                  left: { ...logState.box.border.left, style: e.currentTarget.innerText },
+                },
               });
             }}
-            value={logState.border.top.style}
+            value={logState.box.border.top.style}
           />
           <Slider
             title="Size"
             range={[0, 50]}
             onChange={(e) => {
-              logState.updateBorder({
-                top: { ...logState.border.top, size: e.currentTarget.value + "px" },
-                right: { ...logState.border.right, size: e.currentTarget.value + "px" },
-                bottom: { ...logState.border.bottom, size: e.currentTarget.value + "px" },
-                left: { ...logState.border.left, size: e.currentTarget.value + "px" },
+              logState.updateBox({
+                ...logState.box,
+                border: {
+                  top: { ...logState.box.border.top, size: e.currentTarget.value + "px" },
+                  right: { ...logState.box.border.right, size: e.currentTarget.value + "px" },
+                  bottom: { ...logState.box.border.bottom, size: e.currentTarget.value + "px" },
+                  left: { ...logState.box.border.left, size: e.currentTarget.value + "px" },
+                },
               });
             }}
-            value={logState.border.top.size.replace("px", "")}
+            value={logState.box.border.top.size.replace("px", "")}
           />
           <Slider
             title="Radius"
             range={[0, 50]}
             onChange={(e) => {
-              logState.updateBorder({
-                top: { ...logState.border.top, radius: e.currentTarget.value + "px" },
-                right: { ...logState.border.right, radius: e.currentTarget.value + "px" },
-                bottom: { ...logState.border.bottom, radius: e.currentTarget.value + "px" },
-                left: { ...logState.border.left, radius: e.currentTarget.value + "px" },
+              logState.updateBox({
+                ...logState.box,
+                border: {
+                  top: { ...logState.box.border.top, radius: e.currentTarget.value + "px" },
+                  right: { ...logState.box.border.right, radius: e.currentTarget.value + "px" },
+                  bottom: { ...logState.box.border.bottom, radius: e.currentTarget.value + "px" },
+                  left: { ...logState.box.border.left, radius: e.currentTarget.value + "px" },
+                },
               });
             }}
-            value={logState.border.top.radius.replace("px", "")}
+            value={logState.box.border.top.radius.replace("px", "")}
           />
         </div>
       </div>
