@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/"
+    },
+    {
+      "src": "/box",
+      "dest": "/"
+    },
+    {
+      "src": "/background",
+      "dest": "/"
+    },
+    {
+      "src": "/text",
+      "dest": "/"
+    }
+  ]
+}
