@@ -22,7 +22,7 @@ then
 
 - [x] ~~Share link with console params as search params~~
 
-- [ ] Allow customization for each separate border
+- [x] ~~Allow customization for each separate border~~
 
 - [ ] Allow multiple customizations for a single console.log()
 

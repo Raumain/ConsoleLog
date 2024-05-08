@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'tick': "url('/public/tick.svg')",
+      },
       fontFamily: {
         outfit: ["Outfit", "sans-serif"],
       },
