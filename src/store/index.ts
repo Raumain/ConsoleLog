@@ -31,7 +31,7 @@ interface LogStyleActionsType {
     "padding-left": string,
   })
   getConsoleLog: () => string,
-  convertToSearchParams: () => URLSearchParams
+  reset: () => void
 }
 
 const initialState = {
@@ -152,15 +152,8 @@ export const useLogState = create<typeof initialState & LogStyleActionsType>()((
     return `console.log("%c${content}", "${Object.keys(log).length === 0 ? "" : stringifiedLog}")`
 
   },
-  convertToSearchParams: () => {
-    const { content, background, text, box } = get()
-    const searchParams = new URLSearchParams()
-    searchParams.set("content", content)
-    searchParams.set("border", JSON.stringify(box.border))
-    searchParams.set("background", JSON.stringify(background))
-    searchParams.set("text", JSON.stringify(text))
-    searchParams.set("box", JSON.stringify(box))
-    return searchParams
+  reset: () => {
+    set(initialState)
   }
 }))
 

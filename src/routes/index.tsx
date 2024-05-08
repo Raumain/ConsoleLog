@@ -2,6 +2,7 @@ import { Outlet, useSearchParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import { useLogState } from "../store";
 import { useEffect, useState } from "react";
+import ResetButton from "../components/ResetButton";
 
 export default function Main() {
   const logState = useLogState();
@@ -77,7 +78,10 @@ export default function Main() {
           </div>
           <div className="bg-dark-950 border-dark-800 m-0.5 flex h-1/2 flex-col overflow-y-auto overflow-x-hidden rounded-sm border p-2">
             <div className="flex w-full items-center justify-between">
-              <h3 className="text-primary-500 text-lg font-bold">Code</h3>
+              <h3 className="text-primary-500 flex items-center gap-2 text-lg font-bold">
+                Code
+                <ResetButton resetFn={() => logState.reset()} />
+              </h3>
               <button
                 className="bg-dark-950 border-dark-800 hover:bg-dark-800 active:bg-dark-900 active:border-dark-800 disabled:bg-dark-800 rounded border px-2 py-1 text-xs transition ease-in-out"
                 disabled={tooltipContent === "Copied!"}
